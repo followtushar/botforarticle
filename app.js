@@ -9,10 +9,10 @@ var connector = new builder.ChatConnector({
     appId: '55b76b49-41b1-4e6a-b2ab-0bb292f30f26',
     appPassword: 'xvCReivthZKVTTU3whAZrn7'
 });
-// server.get(/\/?.*/, restify.serveStatic({
-//     directory: './public',
-//     default: 'index.html'
-// }));
+server.get('/', restify.serveStatic({
+ directory: __dirname,
+ default: '/index.html'
+}));
 
 // Listen for messages from users 
 server.post('/api/messages', connector.listen());
