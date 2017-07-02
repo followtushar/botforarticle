@@ -2,20 +2,25 @@ var restify = require('restify');
 var builder = require('botbuilder');
 
 var server = restify.createServer();
+
 server.listen(process.env.port || process.env.PORT || 3978, function () { });
+
+
 
 // Create the chat connector for communicating with the Bot Framework Service
 var connector = new builder.ChatConnector({
     appId: '55b76b49-41b1-4e6a-b2ab-0bb292f30f26',
     appPassword: 'xvCReivthZKVTTU3whAZrn7'
 });
-server.get('/', restify.serveStatic({
- directory: __dirname,
- default: '/index.html'
-}));
+
 
 // Listen for messages from users 
 server.post('/api/messages', connector.listen());
+
+server.get('/', restify.plugins.serveStatic({
+ directory: __dirname,
+ default: '/index.html'
+}));
 
 
 var bot = new builder.UniversalBot(connector, function (session) {
